@@ -23,6 +23,8 @@ namespace Application.CQRS.Commands
             }
             public async Task<long> Handle(CreateProductCommand request, CancellationToken cancellationToken)
             {
+
+                
                 //throw new NotImplementedException();
                 var product = new Product();
                 product.Name = request.Name;
