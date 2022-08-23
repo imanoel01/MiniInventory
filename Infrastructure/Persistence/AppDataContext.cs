@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Application;
+//using Application;
 using Domain.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Persistence
 {
-    public class AppDataContext :   IdentityDbContext<ApplicationUser>,IAppDataContext //DbContext,
+    public class AppDataContext :   IdentityDbContext<ApplicationUser>//,IAppDataContext //DbContext,
     {
        protected readonly IConfiguration _configuration;
 
@@ -30,6 +30,8 @@ namespace Persistence
         }  
 
         public DbSet<Product> Products { get; set; }
+
+        public DbContext Instance => this;
 
         public async Task<int> SaveChangesAsync()
         {

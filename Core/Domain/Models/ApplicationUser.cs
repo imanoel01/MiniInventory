@@ -11,5 +11,6 @@ namespace Domain.Models
         public string Firstname { get; set; }
         public string Middlename { get; set; }
         public string Lastname { get; set; }
+        public Guid? RoleId { get; set; }
     }
 }

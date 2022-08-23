@@ -5,20 +5,25 @@ using System.Threading.Tasks;
 using Domain.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Persistence;
 
-namespace Application.CQRS.Queries
+namespace Application.CQRS.Product.Queries
 {
-    public class GetAllProductQuery : IRequest<IEnumerable<Product>>
+    public class GetAllProductQuery 
     {
-        public class GetAllProductQueryHandler : IRequestHandler<GetAllProductQuery, IEnumerable<Product>>
+        public class Query : IRequest<IEnumerable<Domain.Models.Product>>
         {
-            private readonly IAppDataContext _context;
 
-            public GetAllProductQueryHandler(IAppDataContext context)
+        }
+        public class GetAllProductQueryHandler : IRequestHandler<Query, IEnumerable<Domain.Models.Product>>
+        {
+            private readonly AppDataContext _context;
+
+            public GetAllProductQueryHandler(AppDataContext context)
             {
                 _context = context;
             }
-            public async Task<IEnumerable<Product>> Handle(GetAllProductQuery request, CancellationToken cancellationToken)
+            public async Task<IEnumerable<Domain.Models.Product>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var products = await _context.Products.ToListAsync();
                 if (products == null)

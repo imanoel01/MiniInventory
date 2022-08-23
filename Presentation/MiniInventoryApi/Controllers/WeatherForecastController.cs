@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MiniInventoryApi.Controllers;
 
-[Authorize(Roles =UserRoles.Admin)]
+//[Authorize(Roles =UserRoles.Admin)]
 [ApiController]
 [Route("[controller]")]
 public class WeatherForecastController : ControllerBase

@@ -15,7 +15,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using Application.Common;
 
-namespace Application.CQRS.Queries
+namespace Application.CQRS.Account.Queries
 {
     public static class Login
     {
@@ -78,6 +78,8 @@ namespace Application.CQRS.Queries
             public async Task<Response> Handle(Query request, CancellationToken cancellationToken)
             {
                 var user = await userManager.FindByNameAsync(request.Username);
+                // var userRole = await userManager.get(user);
+                // var role = await roleManager.(userRole.FirstOrDefault());
                 if (user != null && await userManager.CheckPasswordAsync(user, request.Password))
                 {
                     var userRoles = await userManager.GetRolesAsync(user);
@@ -86,12 +88,16 @@ namespace Application.CQRS.Queries
                 {
                     new Claim(ClaimTypes.Name, user.UserName),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                   // new Claim(ClaimTypes.AuthenticationMethod, authMethod),
+                    new Claim("UserId", user.Id.ToString()),
+                    new Claim("RoleId", user.RoleId.ToString()),
                 };
 
-                    foreach (var userRole in userRoles)
-                    {
-                        authClaims.Add(new Claim(ClaimTypes.Role, userRole));
-                    }
+                    // foreach (var userRole in userRoles)
+                    // {
+                    //     authClaims.Add(new Claim(ClaimTypes.Role, userRole));
+                    // }
 
                     var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
 

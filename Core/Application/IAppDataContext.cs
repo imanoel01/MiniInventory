@@ -9,6 +9,7 @@ namespace Application
 {
     public interface IAppDataContext
     {
+        DbContext Instance { get; }
         DbSet<Product> Products {get;set;}
         Task<int> SaveChangesAsync();
     }

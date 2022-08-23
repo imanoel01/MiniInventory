@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Application;
+//using Application;
 using Domain.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -26,7 +26,7 @@ namespace Persistence
         //     .AddDefaultTokenProviders();
 
         services.AddDbContext<AppDataContext>();
-services.AddScoped<IAppDataContext>(sp => sp.GetRequiredService<AppDataContext>());
+// services.AddScoped<IAppDataContext>(sp => sp.GetRequiredService<AppDataContext>());
 
 //For Identity
             services.AddIdentity<ApplicationUser,IdentityRole>()

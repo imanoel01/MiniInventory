@@ -4,29 +4,34 @@ using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
 using Domain.Models;
+using Persistence;
 
-namespace Application.CQRS.Commands
+namespace Application.CQRS.Product.Commands
 {
-    public class CreateProductCommand : IRequest<long>
+    public class CreateProductCommand 
     {
-        public string Name { get; set; } = string.Empty;
+        public class Command :IRequest<long>
+        {
+            public string Name { get; set; } = string.Empty;
         public string? Description { get; set; }
         public long Quantity { get; set; }
         public decimal Price { get; set; }
         public long  CategoryId{ get; set; }
-        public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, long>
+        }
+
+        public class CreateProductCommandHandler : IRequestHandler<Command, long>
         {
-            private readonly IAppDataContext _context;
-            public CreateProductCommandHandler(IAppDataContext context)
+            private readonly AppDataContext _context;
+            public CreateProductCommandHandler(AppDataContext context)
             {
                 _context = context;
             }
-            public async Task<long> Handle(CreateProductCommand request, CancellationToken cancellationToken)
+            public async Task<long> Handle(Command request, CancellationToken cancellationToken)
             {
 
                 
                 //throw new NotImplementedException();
-                var product = new Product();
+                var product = new Domain.Models.Product();
                 product.Name = request.Name;
                 product.Description= request.Description;
                 product.Price= request.Price;

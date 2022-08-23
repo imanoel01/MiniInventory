@@ -3,21 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
+using Persistence;
 
-namespace Application.CQRS.Commands
+namespace Application.CQRS.Product.Commands
 {
-    public class DeleteProductCommand : IRequest<long>
+    public class DeleteProductCommand
     {
-        public long Id { get; set; }
-        public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand, long>
-        {
-            private readonly IAppDataContext _context;
 
-            public DeleteProductCommandHandler(IAppDataContext context)
+        public class Command : IRequest<long>
+        {
+            public long Id { get; set; }
+        }
+        public class DeleteProductCommandHandler : IRequestHandler<Command, long>
+        {
+            private readonly AppDataContext _context;
+
+            public DeleteProductCommandHandler(AppDataContext context)
             {
                 _context = context;
             }
-            public async Task<long> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
+            public async Task<long> Handle(Command request, CancellationToken cancellationToken)
             {
                 var product = await _context.Products.FindAsync(request.Id);
 

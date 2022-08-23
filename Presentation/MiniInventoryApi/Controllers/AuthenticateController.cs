@@ -2,12 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Application.CQRS.Commands;
+using Application.CQRS.Account.Commands;
+using Application.CQRS.Account.Queries;
 using Application.CQRS.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Namespace
+namespace MiniInventoryApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -20,24 +21,24 @@ namespace Namespace
             _mediator = mediator;
         }
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+        // public ActionResult<IEnumerable<string>> Get()
+        // {
+        //     return new string[] { "value1", "value2" };
+        // }
 
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
-        {
-            return "value";
-        }
+        // [HttpGet("{id}")]
+        // public ActionResult<string> Get(int id)
+        // {
+        //     return "value";
+        // }
 
         [HttpPost]
-        public async Task<IActionResult> Post(CreateUserCommand value)
+        public async Task<IActionResult> Post(CreateUserCommand.Command value)
         {
             return Ok(await _mediator.Send(value));
         }
         [HttpPost("CreateAdmin")]
-        public async Task<IActionResult> Post(CreateAdminCommand value)
+        public async Task<IActionResult> Post(CreateAdminCommand.Command value)
         {
             return Ok(await _mediator.Send(value));
         }
@@ -49,14 +50,14 @@ namespace Namespace
             return Ok(await _mediator.Send(value));
         }
 
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+        // [HttpPut("{id}")]
+        // public void Put(int id, [FromBody] string value)
+        // {
+        // }
 
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        // [HttpDelete("{id}")]
+        // public void Delete(int id)
+        // {
+        // }
     }
 }
